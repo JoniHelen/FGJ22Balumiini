@@ -648,6 +648,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &585943257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2395497171855832990, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+  m_PrefabInstance: {fileID: 1519439347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &585943258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2395497171855832985, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+  m_PrefabInstance: {fileID: 1519439347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585943257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &585943261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585943257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c69f2697d86a64c986dfb96ac079cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
+  myPhase: 0
+  myHandler: {fileID: 585943258}
 --- !u!1 &597463274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,6 +2468,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+--- !u!1 &1763265171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1763265173}
+  - component: {fileID: 1763265172}
+  - component: {fileID: 1763265174}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1763265172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763265171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df05054110480c04fa3839c3f85fbae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1763265173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763265171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763265174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763265171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c69f2697d86a64c986dfb96ac079cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
+  myPhase: 1
+  myHandler: {fileID: 1763265172}
 --- !u!1 &1784823516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,18 +2874,18 @@ PrefabInstance:
     - target: {fileID: 7504688610857374903, guid: c11b1c877d9cf3f4cb7e1325bedd3e14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 597463277}
+      objectReference: {fileID: 1763265174}
     - target: {fileID: 7504688610857374903, guid: c11b1c877d9cf3f4cb7e1325bedd3e14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7504688610857374903, guid: c11b1c877d9cf3f4cb7e1325bedd3e14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetState
+      value: ChangePhase
       objectReference: {fileID: 0}
     - target: {fileID: 7504688610857374903, guid: c11b1c877d9cf3f4cb7e1325bedd3e14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Creature, Assembly-CSharp
+      value: PhaseListener, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7504688610857374903, guid: c11b1c877d9cf3f4cb7e1325bedd3e14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class Enemy : MonoBehaviour
 {
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
 }

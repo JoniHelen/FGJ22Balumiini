@@ -53,6 +53,8 @@ public class InputHandler : MonoBehaviour
                     Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
                     //found player
 
+                    SelectTile(new Vector2Int(playerPos.x, playerPos.y));
+
                     var unit = hit.transform.GetComponent<Creature>();
                     unitList.ChangeStates(unit);
                     StartCoroutine(ShowMoveRange(unit.Move, unit.transform.position));
@@ -62,25 +64,32 @@ public class InputHandler : MonoBehaviour
             {
                 MapTile mapTile = map.Tiles(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
 
+                SelectTile(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
 
-                if (map.selectedTile != null)
+                if (unitList.selectedUnit != null)
                 {
-                    tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
-
-                }
-
-                map.selectedTile = new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y);
-
-                tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile2);
-
-                if(unitList.selectedUnit != null)
-                {
-                    unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int( map.selectedTile.x, map.selectedTile.y, 0));
+                    unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0));
                     //prompt actions
                     unitList.Wait();
 
                 }
             }
+        }
+    }
+
+    private void SelectTile(Vector2Int selectedCoords)
+    {
+        if (map.selectedTile != null)
+        {
+            tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
+
+        }
+
+        if (map.tiles.ContainsKey(selectedCoords))
+        {
+            map.selectedTile = selectedCoords;
+
+            tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile2);
         }
     }
 

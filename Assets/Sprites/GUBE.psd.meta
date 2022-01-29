@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -6550099305487840218
     second: GUBE_1
+  - first:
+      213: 5867816982392242973
+    second: GUBE_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -170,6 +173,27 @@ TextureImporter:
       bones: []
       spriteID: 62c4dd4b26f5915a0800000000000000
       internalID: -6550099305487840218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUBE_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9
+        width: 24
+        height: 14
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d138e7ad47cae6150800000000000000
+      internalID: 5867816982392242973
       vertices: []
       indices: 
       edges: []

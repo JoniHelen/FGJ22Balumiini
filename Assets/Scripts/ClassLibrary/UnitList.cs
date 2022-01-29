@@ -7,6 +7,8 @@ public class UnitList : ScriptableObject
 {
     [SerializeField] List<Creature> units = new List<Creature>();
 
+    public Creature selectedUnit;
+
     private void OnEnable()
     {
         units.Clear();
@@ -21,11 +23,21 @@ public class UnitList : ScriptableObject
     {
         foreach (var _unit in units)
         {
-            if (_unit == _selectedUnit) Debug.Log($"Found {_selectedUnit}");
-            else Debug.Log("No, not you");
-            //_unit.ChangeState(_unit == _selectedUnit 
-            //    ? Creature.UnitState.Selected 
-            //    : Creature.UnitState.Idle);
+            if (_unit == _selectedUnit && _selectedUnit.MyState != Creature.UnitState.Wait)
+            {
+                _unit.ChangeState(Creature.UnitState.Selected);
+                selectedUnit = _unit;
+            }
+            else if (_unit.MyState == Creature.UnitState.Selected)
+            {
+                _unit.ChangeState(Creature.UnitState.Idle);
+                if (_unit == selectedUnit) selectedUnit = null;
+            }
         }
+    }
+
+    void SelectUnit()
+    {
+
     }
 }

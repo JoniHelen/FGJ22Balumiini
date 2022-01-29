@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 422264225}
   - component: {fileID: 422264224}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: MoveTilemap
   m_TagString: Tilemap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -848,8 +848,10 @@ MonoBehaviour:
     m_Bits: 1
   map: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
   tilemap: {fileID: 1084528771}
+  moveTilemap: {fileID: 0}
   tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
   tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
+  unitList: {fileID: 0}
 --- !u!4 &816222447
 Transform:
   m_ObjectHideFlags: 0
@@ -2224,6 +2226,14 @@ PrefabInstance:
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1084528771}
+    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+      propertyPath: unitList
+      value: 
+      objectReference: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
+    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+      propertyPath: moveTilemap
+      value: 
+      objectReference: {fileID: 422264225}
     - target: {fileID: 2395497171855832987, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: m_RootOrder
       value: 9

@@ -35,8 +35,15 @@ public class Creature : MonoBehaviour
         myState = _state;
     }
 
-    public void GetState()
+    public UnitState MyState
     {
+        get => myState;
+    }
+
+    public void DeprecatedShowRange()
+    {
+        //FormSquares();
+        StopCoroutine(ShowMoveRange());
         StartCoroutine(ShowMoveRange());
         //IterateTiles();
     }
@@ -48,27 +55,24 @@ public class Creature : MonoBehaviour
 
     private void FormSquares()
     {
-        for (int i = Move * -1; i < Move + 1; i++)
+        tilemap.ClearAllTiles();
+        tilemap.RefreshAllTiles();
+        for (int i = 0; i < Move + 1; i++)
         {
-            for (int j = 0; j < BattleGrid.Square.Length; j++)
+            for (int j = -i; j <= i; j++)
             {
-                var obj = Pooler.SharedInstance.PoolItem(Move * BattleGrid.Square.Length);
-
-                if (obj == null) break;
-                obj.SetActive(true);
-                //get squares around player
-                obj.transform.position = transform.position + BattleGrid.Square[j] * i;
-
-
-
-
+                tilemap.SetTile(tilemap.WorldToCell(transform.position) + new Vector3Int(i, j, 0) + Vector3Int.left * Move, tile2);
+                if (i < Move)
+                {
+                    tilemap.SetTile(tilemap.WorldToCell(transform.position) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, tile2);
+                }
             }
         }
     }
 
 
 
-    WaitForSeconds delay = new WaitForSeconds(0.02f);
+    WaitForSeconds delay = new WaitForSeconds(0.01f);
     IEnumerator ShowMoveRange()
     {
         //player move is 3
@@ -83,32 +87,19 @@ public class Creature : MonoBehaviour
          */
         //24 tiles should be highlighted
 
-        Pooler.SharedInstance.ResetPool();
+        //Pooler.SharedInstance.ResetPool();
         tilemap.ClearAllTiles();
+
         for (int i = 0; i < Move + 1; i++)
         {
             for (int j = -i; j <= i; j++)
             {
-                var tile = Pooler.SharedInstance.PoolItem();
-                if (tile != null)
-                {
-
-                    tile.SetActive(true);
-                    tile.transform.position = transform.position + new Vector3(i, j, 0) + Vector3Int.left * Move;
-                    tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
-                }
+                tilemap.SetTile(tilemap.WorldToCell(transform.position)+ new Vector3Int(i, j, 0) + Vector3Int.left * Move, tile2);
 
                 if (i < Move)
                 {
+                    tilemap.SetTile(tilemap.WorldToCell(transform.position) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, tile2);
 
-                    tile = Pooler.SharedInstance.PoolItem();
-                    if (tile != null)
-                    {
-
-                        tile.SetActive(true);
-                        tile.transform.position = transform.position + new Vector3(-i, j, 0) + Vector3Int.right * Move;
-                        tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
-                    }
                 }
                 yield return delay;
             }

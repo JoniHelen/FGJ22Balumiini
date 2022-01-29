@@ -9,13 +9,16 @@ public class InputHandler : MonoBehaviour
     [SerializeField] LayerMask SelectionMask;
     [SerializeField] Map map;
     [SerializeField] Tilemap tilemap;
+    [SerializeField] Tilemap moveTilemap;
+
     [SerializeField] TileBase tile;
     [SerializeField] TileBase tile2;
+
+    [SerializeField] UnitList unitList;
 
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
-    [SerializeField] UnitList _unitList;
 
     public void UpdateMouse(InputAction.CallbackContext ctx)
     {
@@ -33,10 +36,11 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed)
         {
+            moveTilemap.ClearAllTiles();
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
+            StopAllCoroutines();
 
-            Debug.Log("Registered Click at: " + mouseScreenPos + " , " + mouseWorldPos);
 
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector2.zero, Mathf.Infinity, SelectionMask);
 
@@ -44,30 +48,34 @@ public class InputHandler : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("PlayableCharacter"))
                 {
-                    Debug.Log("Ray hit player at: " + hit.transform.position);
                     //Tell map player is selected
                     Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
                     //found player
 
-                    Debug.Log($"{map.Tiles(new Vector2Int(playerPos.x, playerPos.y))} {playerPos}");
                     var unit = hit.transform.GetComponent<Creature>();
-                    Debug.Log("");
+                    unitList.ChangeStates(unit);
+                    StartCoroutine(ShowMoveRange(unit.Move, unit.transform.position));
                 }
             }
             else
             {
                 MapTile mapTile = map.Tiles(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
 
-                Debug.Log("Selected tile at: " + tilemap.WorldToCell(mouseWorldPos));
 
                 if (map.selectedTile != null)
                 {
-                    tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile2);
+                    tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
+
                 }
 
                 map.selectedTile = new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y);
 
-                tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile);
+                tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile2);
+
+                if(unitList.selectedUnit != null)
+                {
+                    unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int( map.selectedTile.x, map.selectedTile.y, 0));
+                }
             }
         }
     }
@@ -78,5 +86,43 @@ public class InputHandler : MonoBehaviour
         {
 
         }
+    }
+
+
+
+
+    WaitForSeconds delay = new WaitForSeconds(0.01f);
+    IEnumerator ShowMoveRange(int Move, Vector3 unitPos)
+    {
+        //player move is 3
+        /*
+         * X
+         *XXX
+        _XXXXX
+        XXXOXXX
+        _XXXXX
+        __XXX
+        ___X
+         */
+        //24 tiles should be highlighted
+
+        //Pooler.SharedInstance.ResetPool();
+        moveTilemap.ClearAllTiles();
+
+        for (int i = 0; i < Move + 1; i++)
+        {
+            for (int j = -i; j <= i; j++)
+            {
+                moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(i, j, 0) + Vector3Int.left * Move, tile2);
+
+                if (i < Move)
+                {
+                    moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, tile2);
+
+                }
+                yield return delay;
+            }
+        }
+
     }
 }

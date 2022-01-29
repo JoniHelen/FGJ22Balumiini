@@ -20,16 +20,25 @@ public class Creature : MonoBehaviour, ICombat
 
     public int Move { get; set; }
     public int HP { get; set; }
-    public int maxHP { get; }
-    public int Strength { get; }
-    public int SpiritualProwess { get; }
+    public int maxHP { get; private set; }
+    public int Strength { get; private set; }
+    public int SpiritualProwess { get; private set; }
+    public int PhysicalDefense { get; private set; }
+    public int SpiritualDefense { get; private set; }
+    public bool IsSpiritual { get; set; }
+
 
     UnitState myState;
 
-    public Creature()
+    public void Init(StatSheet stats)
     {
-        Strength = 5;
-        HP = 10;
+        HP = stats.HP;
+        maxHP = stats.maxHP;
+        Strength = stats.Strength;
+        SpiritualProwess = stats.SpiritualProwess;
+        PhysicalDefense = stats.PhysicalDefense;
+        SpiritualDefense = stats.SpiritualDefense;
+        IsSpiritual = stats.IsSpiritual;
     }
 
     // Start is called before the first frame update
@@ -50,6 +59,7 @@ public class Creature : MonoBehaviour, ICombat
         get => myState;
     }
 
+    
     public void TakeDamage(int amount)
     {
         HP = Mathf.Max(HP - amount, 0);

@@ -13,6 +13,7 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] TileBase tile;
     [SerializeField] TileBase tile2;
+    [SerializeField] TileBase moveTile;
 
     [SerializeField] UnitList unitList;
 
@@ -75,6 +76,9 @@ public class InputHandler : MonoBehaviour
                 if(unitList.selectedUnit != null)
                 {
                     unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int( map.selectedTile.x, map.selectedTile.y, 0));
+                    //prompt actions
+                    unitList.Wait();
+
                 }
             }
         }
@@ -113,11 +117,11 @@ public class InputHandler : MonoBehaviour
         {
             for (int j = -i; j <= i; j++)
             {
-                moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(i, j, 0) + Vector3Int.left * Move, tile2);
+                moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(i, j, 0) + Vector3Int.left * Move, moveTile);
 
                 if (i < Move)
                 {
-                    moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, tile2);
+                    moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, moveTile);
 
                 }
                 yield return delay;

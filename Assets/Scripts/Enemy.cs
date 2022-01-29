@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
                         //player found, go to it.
                         Vector3Int target = playerCell - enemyPos;
                         Debug.Log($"enemy {enemyPos} => {target}");
-                        
+
                         int x = Mathf.Abs(target.x);
                         int y = Mathf.Abs(target.y);
                         if (y > x)
@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
 
                         target.x = (target.x > 0) ? x : x * -1;
                         target.y = (target.y > 0) ? y : y * -1;
-                        
+          
                         if (!IsBlocked(enemyPos, target))
                         {
                             unit.transform.position = tilemap.CellToWorld(enemyPos + target);
@@ -118,6 +118,8 @@ public class Enemy : MonoBehaviour
                         }
                     }
                 }
+                    
+                
             }
         }
         unitList.Wait();

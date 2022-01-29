@@ -8,14 +8,18 @@ public class UnitCreator : MonoBehaviour
     [SerializeField] Creature unitPrefab;
     [SerializeField] UnitList _unitList;
 
+    [SerializeField] GameObject myEnabler;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < numberOfUnits; i++)
         {
-            Creature _unit = Instantiate(unitPrefab, Vector3Int.right*i,transform.rotation);
+            Creature _unit = Instantiate(unitPrefab, Vector3Int.right * i, transform.rotation);
             _unitList.AddUnit(_unit);
         }
+
+        myEnabler.SetActive(true);
 
         Destroy(gameObject);
     }

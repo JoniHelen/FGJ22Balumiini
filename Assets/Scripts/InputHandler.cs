@@ -7,6 +7,8 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField] LayerMask SelectionMask;
+    string mySide;
+
     [SerializeField] Map map;
     [SerializeField] Tilemap tilemap;
     [SerializeField] Tilemap moveTilemap;
@@ -19,6 +21,12 @@ public class InputHandler : MonoBehaviour
 
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
+
+    private void Awake()
+    {
+        mySide = gameObject.tag;
+        Debug.Log($"{gameObject.name} = {mySide}");
+    }
 
 
     public void UpdateMouse(InputAction.CallbackContext ctx)
@@ -47,7 +55,7 @@ public class InputHandler : MonoBehaviour
 
             if (hit)
             {
-                if (hit.collider.gameObject.CompareTag("PlayableCharacter"))
+                if (hit.collider.gameObject.CompareTag(mySide))
                 {
                     //Tell map player is selected
                     Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);

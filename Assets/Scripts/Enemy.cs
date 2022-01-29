@@ -8,5 +8,9 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
     }
-
+    /*
+     inherit inputhandler
+     
+     
+     */
 }

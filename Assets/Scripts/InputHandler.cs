@@ -7,6 +7,8 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField] LayerMask SelectionMask;
+    string mySide;
+
     [SerializeField] Map map;
     [SerializeField] Tilemap tilemap;
     [SerializeField] Tilemap moveTilemap;
@@ -20,6 +22,15 @@ public class InputHandler : MonoBehaviour
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
+    private void Awake()
+    {
+        mySide = gameObject.tag;
+    }
+
+    private void OnDisable()
+    {
+        unitList.ReturnToIdle();
+    }
 
     public void UpdateMouse(InputAction.CallbackContext ctx)
     {
@@ -47,7 +58,7 @@ public class InputHandler : MonoBehaviour
 
             if (hit)
             {
-                if (hit.collider.gameObject.CompareTag("PlayableCharacter"))
+                if (hit.collider.gameObject.CompareTag(mySide))
                 {
                     //Tell map player is selected
                     Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
@@ -56,7 +67,7 @@ public class InputHandler : MonoBehaviour
                     SelectTile(new Vector2Int(playerPos.x, playerPos.y));
 
                     var unit = hit.transform.GetComponent<Creature>();
-                    unitList.ChangeStates(unit);
+                    unitList.ToggleSelection(unit);
                     StartCoroutine(ShowMoveRange(unit.Move, unit.transform.position));
                 }
             }
@@ -82,7 +93,7 @@ public class InputHandler : MonoBehaviour
         else
         {
             unitList.selectedUnit = null;
-            unitList.ChangeStates(unitList.selectedUnit);
+            unitList.ToggleSelection(unitList.selectedUnit);
         }
 
         moveTilemap.ClearAllTiles();
@@ -90,17 +101,28 @@ public class InputHandler : MonoBehaviour
 
     private void SelectTile(Vector2Int selectedCoords)
     {
-        if (map.selectedTile != null)
+        if (HasPreviousSelectedTile())
         {
+            //make white
             tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
         }
 
-        if (map.tiles.ContainsKey(selectedCoords))
+        if (IsInMap(selectedCoords))
         {
             map.selectedTile = selectedCoords;
-
+            //make red
             tilemap.SetTile(new Vector3Int(selectedCoords.x, selectedCoords.y, 0), tile2);
         }
+    }
+
+    private bool IsInMap(Vector2Int selectedCoords)
+    {
+        return map.tiles.ContainsKey(selectedCoords);
+    }
+
+    private bool HasPreviousSelectedTile()
+    {
+        return map.selectedTile != null;
     }
 
     public void Drag(InputAction.CallbackContext ctx)

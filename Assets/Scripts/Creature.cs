@@ -51,7 +51,8 @@ public class Creature : MonoBehaviour, ICombat
     public void ChangeState(UnitState _state)
     {
         myState = _state;
-        renderer.color = (myState == UnitState.Wait) ? wait : active;
+        if(renderer != null)
+            renderer.color = (myState == UnitState.Wait) ? wait : active;
     }
 
     public UnitState MyState

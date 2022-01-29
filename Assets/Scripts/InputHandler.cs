@@ -117,11 +117,15 @@ public class InputHandler : MonoBehaviour
         {
             for (int j = -i; j <= i; j++)
             {
-                moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(i, j, 0) + Vector3Int.left * Move, moveTile);
+                Vector3Int tilePos = moveTilemap.WorldToCell(unitPos) + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
+                if (tilemap.HasTile(tilePos))
+                moveTilemap.SetTile(tilePos, moveTile);
 
                 if (i < Move)
                 {
-                    moveTilemap.SetTile(moveTilemap.WorldToCell(unitPos) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move, moveTile);
+                    tilePos = moveTilemap.WorldToCell(unitPos) + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
+                    if(tilemap.HasTile(tilePos))
+                        moveTilemap.SetTile(tilePos, moveTile);
 
                 }
                 yield return delay;

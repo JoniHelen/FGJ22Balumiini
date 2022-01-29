@@ -65,62 +65,67 @@ public class Enemy : MonoBehaviour
     public void Select()
     {
         Creature unit = unitList.selectedUnit;
-        //Tell map player is selected
-        Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
 
-        int Move = unit.Move;
-        Vector3Int playerCell;
-        Vector3Int tilePos;
-        bool isFound = false;
-        for (int i = 0; i < Move + 1; i++)
+        if (unit != null)
         {
-            if (isFound) break;
-            for (int j = -i; j <= i; j++)
+
+            //Tell map player is selected
+            Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
+
+            int Move = unit.Move;
+            Vector3Int playerCell;
+            Vector3Int tilePos;
+            bool isFound = false;
+            for (int i = 0; i < Move + 1; i++)
             {
                 if (isFound) break;
-                //get tile within move range
-                if (i < Move)
+                for (int j = -i; j <= i; j++)
                 {
-                    tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
-                }
-                else
-                tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
-                // check if any player pos is same
-                for (int p = 0; p < playerList.Count; p++)
-                {
-                    var player = playerList.Next(p);
-                    playerCell = tilemap.WorldToCell(player.transform.position);
-                    if (tilePos == playerCell)
+                    if (isFound) break;
+                    //get tile within move range
+                    if (i < Move)
                     {
-                        //player found, go to it.
-                        Vector3Int target = playerCell - enemyPos;
-                        Debug.Log($"enemy {enemyPos} => {target}");
-                        isFound = true;
-                        int x = Mathf.Abs(target.x);
-                        int y = Mathf.Abs(target.y);
-                        if (y > x)
-                        {
-                            y -= 1;
-                        }
-                        else
-                        {
-                            x -= 1;
-                        }
-
-                        target.x = (target.x > 0) ? x : x * -1;
-                        target.y = (target.y > 0) ? y : y * -1;
-                        unit.transform.position = tilemap.CellToWorld(enemyPos+ target);
-                        unitList.Wait();
-                        /*
-                         (-3, 1)
-                        ABS (2, 1)
-                         target => (-2, 1)
-                         */
-
-                        break;
+                        tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
                     }
-                }
+                    else
+                        tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
+                    // check if any player pos is same
+                    for (int p = 0; p < playerList.Count; p++)
+                    {
+                        var player = playerList.Next(p);
+                        playerCell = tilemap.WorldToCell(player.transform.position);
+                        if (tilePos == playerCell)
+                        {
+                            //player found, go to it.
+                            Vector3Int target = playerCell - enemyPos;
+                            Debug.Log($"enemy {enemyPos} => {target}");
+                            isFound = true;
+                            int x = Mathf.Abs(target.x);
+                            int y = Mathf.Abs(target.y);
+                            if (y > x)
+                            {
+                                y -= 1;
+                            }
+                            else
+                            {
+                                x -= 1;
+                            }
 
+                            target.x = (target.x > 0) ? x : x * -1;
+                            target.y = (target.y > 0) ? y : y * -1;
+                            unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+                            unitList.Wait();
+                            /*
+                             (-3, 1)
+                            ABS (2, 1)
+                             target => (-2, 1)
+                             */
+
+                            break;
+                        }
+                    }
+
+                }
             }
         }
         unitList.Wait();

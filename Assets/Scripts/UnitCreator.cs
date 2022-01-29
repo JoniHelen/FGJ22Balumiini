@@ -7,7 +7,7 @@ public class UnitCreator : MonoBehaviour
     [SerializeField] int numberOfUnits = 3;
     [SerializeField] Creature unitPrefab;
     [SerializeField] UnitList _unitList;
-
+    public int yOffset;
     [SerializeField] GameObject myEnabler;
 
     // Start is called before the first frame update
@@ -15,7 +15,7 @@ public class UnitCreator : MonoBehaviour
     {
         for (int i = 0; i < numberOfUnits; i++)
         {
-            Creature _unit = Instantiate(unitPrefab, Vector3Int.right * i, transform.rotation);
+            Creature _unit = Instantiate(unitPrefab, Vector3Int.right * i + Vector3Int.up*yOffset, transform.rotation);
             _unitList.AddUnit(_unit);
         }
 

@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
-using TMPro;
+using UnityEngine.Tilemaps;
 
 public class Creature : MonoBehaviour
 {
-    public TextMeshProUGUI debugText;
+
+    [SerializeField] Map map;
+    [SerializeField] Tilemap tilemap;
+    [SerializeField] TileBase tile;
+    [SerializeField] TileBase tile2;
     // define the state of being selected
-    enum State
+    public enum UnitState
     {
         Idle,
         Selected,
@@ -19,12 +22,17 @@ public class Creature : MonoBehaviour
     public int Move { get; set; }
 
 
-    State myState;
+    UnitState myState;
 
     // Start is called before the first frame update
     void Start()
     {
         Move = 5;
+    }
+
+    public void ChangeState(UnitState _state)
+    {
+        myState = _state;
     }
 
     public void GetState()
@@ -76,7 +84,7 @@ public class Creature : MonoBehaviour
         //24 tiles should be highlighted
 
         Pooler.SharedInstance.ResetPool();
-
+        tilemap.ClearAllTiles();
         for (int i = 0; i < Move + 1; i++)
         {
             for (int j = -i; j <= i; j++)
@@ -86,8 +94,8 @@ public class Creature : MonoBehaviour
                 {
 
                     tile.SetActive(true);
-                    tile.transform.position = transform.position + new Vector3(i, 0, j) + Vector3Int.left * Move;
-                    debugText.text = $"{i} {j}";
+                    tile.transform.position = transform.position + new Vector3(i, j, 0) + Vector3Int.left * Move;
+                    tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
                 }
 
                 if (i < Move)
@@ -98,8 +106,8 @@ public class Creature : MonoBehaviour
                     {
 
                         tile.SetActive(true);
-                        tile.transform.position = transform.position + new Vector3(-i, 0, j) + Vector3Int.right * Move;
-                        debugText.text += $", {-i} {j}";
+                        tile.transform.position = transform.position + new Vector3(-i, j, 0) + Vector3Int.right * Move;
+                        tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
                     }
                 }
                 yield return delay;

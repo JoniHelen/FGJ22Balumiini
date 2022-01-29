@@ -11,7 +11,12 @@ public class Generator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        map.AddTile(Vector2Int.zero, tilemap.GetTile(Vector3Int.zero));
+        for (int i = -10; i < 10; i++)
+        {
+            for (int j = -10; j < 10; j++)
+            {
+                map.AddTile(new Vector2Int(i, j), tilemap.GetTile(new Vector3Int(i, j, 0)));
+            }
+        }
     }
 }

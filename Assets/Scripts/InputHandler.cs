@@ -10,6 +10,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] Map map;
     [SerializeField] Tilemap tilemap;
     [SerializeField] TileBase tile;
+    [SerializeField] TileBase tile2;
 
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
@@ -60,6 +61,13 @@ public class InputHandler : MonoBehaviour
                 MapTile mapTile = map.tiles[new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y)];
 
                 Debug.Log("Selected tile at: " + tilemap.WorldToCell(mouseWorldPos));
+
+                if (map.selectedTile != null)
+                {
+                    tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile2);
+                }
+
+                map.selectedTile = new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y);
 
                 tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile);
             }

@@ -37,7 +37,7 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed)
         {
-            moveTilemap.ClearAllTiles();
+            
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
             StopAllCoroutines();
@@ -66,15 +66,26 @@ public class InputHandler : MonoBehaviour
 
                 SelectTile(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
 
-                if (unitList.selectedUnit != null)
-                {
-                    unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0));
-                    //prompt actions
-                    unitList.Wait();
-
-                }
+                MoveUnit();
             }
         }
+    }
+
+    private void MoveUnit()
+    {
+        if (unitList.selectedUnit != null && moveTilemap.HasTile(new Vector3Int(moveTilemap.WorldToCell(mouseWorldPos).x, moveTilemap.WorldToCell(mouseWorldPos).y, 0)))
+        {
+            unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0));
+            //prompt actions
+            unitList.Wait();
+        }
+        else
+        {
+            unitList.selectedUnit = null;
+            unitList.ChangeStates(unitList.selectedUnit);
+        }
+
+        moveTilemap.ClearAllTiles();
     }
 
     private void SelectTile(Vector2Int selectedCoords)
@@ -82,14 +93,13 @@ public class InputHandler : MonoBehaviour
         if (map.selectedTile != null)
         {
             tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
-
         }
 
         if (map.tiles.ContainsKey(selectedCoords))
         {
             map.selectedTile = selectedCoords;
 
-            tilemap.SetTile(tilemap.WorldToCell(mouseWorldPos), tile2);
+            tilemap.SetTile(new Vector3Int(selectedCoords.x, selectedCoords.y, 0), tile2);
         }
     }
 

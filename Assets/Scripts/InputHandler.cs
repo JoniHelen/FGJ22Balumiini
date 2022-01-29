@@ -15,19 +15,7 @@ public class InputHandler : MonoBehaviour
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-    }
+    [SerializeField] UnitList _unitList;
 
     public void UpdateMouse(InputAction.CallbackContext ctx)
     {
@@ -45,6 +33,9 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed)
         {
+            mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+
             Debug.Log("Registered Click at: " + mouseScreenPos + " , " + mouseWorldPos);
 
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector2.zero, Mathf.Infinity, SelectionMask);
@@ -53,12 +44,19 @@ public class InputHandler : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("PlayableCharacter"))
                 {
-                    Debug.Log("Ray hit player at: " + hit.point);
+                    Debug.Log("Ray hit player at: " + hit.transform.position);
+                    //Tell map player is selected
+                    Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
+                    //found player
+
+                    Debug.Log($"{map.Tiles(new Vector2Int(playerPos.x, playerPos.y))} {playerPos}");
+                    var unit = hit.transform.GetComponent<Creature>();
+                    Debug.Log("");
                 }
             }
             else
             {
-                MapTile mapTile = map.tiles[new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y)];
+                MapTile mapTile = map.Tiles(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
 
                 Debug.Log("Selected tile at: " + tilemap.WorldToCell(mouseWorldPos));
 

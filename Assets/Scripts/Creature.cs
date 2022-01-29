@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Creature : MonoBehaviour, ICombat
 {
+    [SerializeField] Map map;
+    [SerializeField] Tilemap tilemap;
+    [SerializeField] TileBase tile;
+    [SerializeField] TileBase tile2;
     // define the state of being selected
-    enum State
+    public enum UnitState
     {
         Idle,
         Selected,
@@ -20,7 +24,7 @@ public class Creature : MonoBehaviour, ICombat
     public int Strength { get; }
     public int SpiritualProwess { get; }
 
-    State myState;
+    UnitState myState;
 
     public Creature()
     {
@@ -32,6 +36,11 @@ public class Creature : MonoBehaviour, ICombat
     void Start()
     {
         Move = 5;
+    }
+
+    public void ChangeState(UnitState _state)
+    {
+        myState = _state;
     }
 
     public void GetState()
@@ -83,7 +92,7 @@ public class Creature : MonoBehaviour, ICombat
         //24 tiles should be highlighted
 
         Pooler.SharedInstance.ResetPool();
-
+        tilemap.ClearAllTiles();
         for (int i = 0; i < Move + 1; i++)
         {
             for (int j = -i; j <= i; j++)
@@ -93,7 +102,9 @@ public class Creature : MonoBehaviour, ICombat
                 {
 
                     tile.SetActive(true);
-                    tile.transform.position = transform.position + new Vector3(i, 0, j) + Vector3Int.left * Move;
+
+                    tile.transform.position = transform.position + new Vector3(i, j, 0) + Vector3Int.left * Move;
+                    tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
                 }
 
                 if (i < Move)
@@ -104,7 +115,9 @@ public class Creature : MonoBehaviour, ICombat
                     {
 
                         tile.SetActive(true);
-                        tile.transform.position = transform.position + new Vector3(-i, 0, j) + Vector3Int.right * Move;
+
+                        tile.transform.position = transform.position + new Vector3(-i, j, 0) + Vector3Int.right * Move;
+                        tilemap.SetTile(Vector3Int.FloorToInt(tile.transform.position), tile2);
                     }
                 }
                 yield return delay;

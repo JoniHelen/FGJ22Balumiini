@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2395497171855832987}
   - component: {fileID: 2395497171855832984}
   - component: {fileID: 2395497171855832985}
+  - component: {fileID: 585943261}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: PlayableCharacter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,8 +50,11 @@ MonoBehaviour:
     m_Bits: 1
   map: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
   tilemap: {fileID: 0}
-  tile: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
-  tile2: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
+  moveTilemap: {fileID: 0}
+  tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
+  tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
+  moveTile: {fileID: 11400000, guid: 69bdadd0bf7a8c249b4168bfcf514f0d, type: 2}
+  unitList: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
 --- !u!114 &2395497171855832985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,3 +121,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &585943261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395497171855832990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c69f2697d86a64c986dfb96ac079cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
+  myPhase: 0
+  myHandler: {fileID: 2395497171855832985}

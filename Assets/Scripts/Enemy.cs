@@ -9,8 +9,21 @@ public class Enemy : MonoBehaviour
     {
     }
     /*
-     inherit inputhandler
-     
+      sends input to inputhandler
+     go through enemy list one at a time.
+    check move range
+    option 1: attack player in range
+    option 2: escape
+    Wait
+    next enemy unit...
+
+    ...
+    End phase
      
      */
+
+    private void OnEnable()
+    {
+        
+    }
 }

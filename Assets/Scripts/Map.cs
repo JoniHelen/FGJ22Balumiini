@@ -7,6 +7,7 @@ using UnityEngine;
 public class Map : ScriptableObject
 {
     public Dictionary<Vector2Int, MapTile> tiles = new Dictionary<Vector2Int, MapTile>();
+
     public Vector2Int selectedTile;
 
     public void AddTile(Vector2Int coords, TileBase tile)

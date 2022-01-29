@@ -15,7 +15,9 @@ public class Generator : MonoBehaviour
         {
             for (int j = -100; j < 100; j++)
             {
-                map.AddTile(new Vector2Int(i, j), tilemap.GetTile(new Vector3Int(i, j, 0)));
+                Vector3Int tilePos = new Vector3Int(i, j, 0);
+                if (tilemap.HasTile(tilePos))
+                    map.AddTile(new Vector2Int(i, j), tilemap.GetTile(tilePos));
             }
         }
     }

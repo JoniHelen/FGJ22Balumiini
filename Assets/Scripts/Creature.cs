@@ -6,10 +6,10 @@ using UnityEngine.Tilemaps;
 
 public class Creature : MonoBehaviour, ICombat
 {
-    [SerializeField] Map map;
-    [SerializeField] Tilemap tilemap;
-    [SerializeField] TileBase tile;
-    [SerializeField] TileBase tile2;
+    Color active = Color.white;
+    Color wait = Color.grey;
+
+    SpriteRenderer renderer;
     // define the state of being selected
     public enum UnitState
     {
@@ -35,12 +35,14 @@ public class Creature : MonoBehaviour, ICombat
     // Start is called before the first frame update
     void Start()
     {
+        renderer = GetComponentInChildren<SpriteRenderer>();
         Move = 5;
     }
 
     public void ChangeState(UnitState _state)
     {
         myState = _state;
+        renderer.color = (myState == UnitState.Wait) ? wait : active;
     }
 
     public UnitState MyState

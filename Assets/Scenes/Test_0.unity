@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &135242535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135242534}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19a2602e7b843ab4a8880cd5bee9cb16, type: 3}
   m_Name: 
@@ -728,10 +728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419251f70dcbc30409e02ae17764ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  tilemap: {fileID: 422264225}
-  tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
-  tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
 --- !u!4 &597463278
 Transform:
   m_ObjectHideFlags: 0
@@ -851,6 +847,7 @@ MonoBehaviour:
   moveTilemap: {fileID: 0}
   tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
   tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
+  moveTile: {fileID: 0}
   unitList: {fileID: 0}
 --- !u!4 &816222447
 Transform:
@@ -2120,7 +2117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1084799515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2133,10 +2130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419251f70dcbc30409e02ae17764ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
-  tilemap: {fileID: 422264225}
-  tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
-  tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
 --- !u!50 &1084799516
 Rigidbody2D:
   serializedVersion: 4
@@ -2383,6 +2376,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1084528771}
     - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+      propertyPath: moveTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 69bdadd0bf7a8c249b4168bfcf514f0d, type: 2}
+    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: unitList
       value: 
       objectReference: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
@@ -2608,7 +2605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfUnits: 3
-  unitPrefab: {fileID: 1084799515}
+  unitPrefab: {fileID: 3328438462071008865, guid: 4353dd1bf263b9646a62b3f06a732032, type: 3}
   _unitList: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
 --- !u!4 &1952656542
 Transform:

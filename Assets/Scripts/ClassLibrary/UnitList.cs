@@ -9,6 +9,7 @@ public class UnitList : ScriptableObject
 
     public Creature selectedUnit;
 
+
     private void OnEnable()
     {
         units.Clear();
@@ -34,6 +35,12 @@ public class UnitList : ScriptableObject
                 if (_unit == selectedUnit) selectedUnit = null;
             }
         }
+    }
+
+    public void Wait()
+    {
+        selectedUnit.ChangeState(Creature.UnitState.Wait);
+        selectedUnit = null;
     }
 
     void SelectUnit()

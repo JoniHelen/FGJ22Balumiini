@@ -14,7 +14,6 @@ public class Map : ScriptableObject
     {
         MapTile mapTile = new MapTile() { tile = tile };
         tiles.Add(coords, mapTile);
-
     }
 
     public MapTile Tiles(Vector2Int _pos)

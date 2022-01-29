@@ -6,6 +6,8 @@ using UnityEngine.TestTools;
 
 public class MyUnitTester
 {
+    private string turn;
+
     // A Test behaves as an ordinary method
     [Test]
     public void MyUnitTesterSimplePasses()
@@ -14,6 +16,14 @@ public class MyUnitTester
 
         //Generate tile
         
+    }
+
+
+    [Test]
+    public void EnemyTurnBegins()
+    {
+        // Assert that it is enemy's turn
+        Assert.That(turn == "enemy", "It is not enemy turn");
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

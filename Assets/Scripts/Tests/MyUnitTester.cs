@@ -13,8 +13,7 @@ public class MyUnitTester
         // Use the Assert class to test conditions
 
         //Generate tile
-        GameObject obj = new GameObject();
-        Assert.That(obj.GetComponent<MeshRenderer>() != null, "");
+        
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

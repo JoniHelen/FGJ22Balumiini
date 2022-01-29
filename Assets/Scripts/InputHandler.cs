@@ -15,7 +15,7 @@ public class InputHandler : MonoBehaviour
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
-
+    [SerializeField] UnitList _unitList;
 
     public void UpdateMouse(InputAction.CallbackContext ctx)
     {
@@ -50,6 +50,8 @@ public class InputHandler : MonoBehaviour
                     //found player
 
                     Debug.Log($"{map.Tiles(new Vector2Int(playerPos.x, playerPos.y))} {playerPos}");
+                    var unit = hit.transform.GetComponent<Creature>();
+                    Debug.Log("");
                 }
             }
             else

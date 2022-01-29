@@ -21,7 +21,11 @@ public class UnitList : ScriptableObject
     {
         foreach (var _unit in units)
         {
-            _unit.ChangeState(_unit == _selectedUnit ? Creature.UnitState.Selected : Creature.UnitState.Idle);
+            if (_unit == _selectedUnit) Debug.Log($"Found {_selectedUnit}");
+            else Debug.Log("No, not you");
+            //_unit.ChangeState(_unit == _selectedUnit 
+            //    ? Creature.UnitState.Selected 
+            //    : Creature.UnitState.Idle);
         }
     }
 }

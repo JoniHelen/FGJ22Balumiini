@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using TMPro;
 
-public class Creature : MonoBehaviour
+public class Creature : MonoBehaviour, ICombat
 {
-    public TextMeshProUGUI debugText;
     // define the state of being selected
     enum State
     {
@@ -17,9 +15,18 @@ public class Creature : MonoBehaviour
     }
 
     public int Move { get; set; }
-
+    public int HP { get; set; }
+    public int maxHP { get; }
+    public int Strength { get; }
+    public int SpiritualProwess { get; }
 
     State myState;
+
+    public Creature()
+    {
+        Strength = 5;
+        HP = 10;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +94,6 @@ public class Creature : MonoBehaviour
 
                     tile.SetActive(true);
                     tile.transform.position = transform.position + new Vector3(i, 0, j) + Vector3Int.left * Move;
-                    debugText.text = $"{i} {j}";
                 }
 
                 if (i < Move)
@@ -99,12 +105,16 @@ public class Creature : MonoBehaviour
 
                         tile.SetActive(true);
                         tile.transform.position = transform.position + new Vector3(-i, 0, j) + Vector3Int.right * Move;
-                        debugText.text += $", {-i} {j}";
                     }
                 }
                 yield return delay;
             }
         }
 
+    }
+
+    public void TakeDamage(int amount)
+    {
+        HP = Mathf.Max(HP - amount, 0);
     }
 }

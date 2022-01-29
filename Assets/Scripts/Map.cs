@@ -13,7 +13,5 @@ public class Map : ScriptableObject
     {
         MapTile mapTile = new MapTile() { tile = tile };
         tiles.Add(coords, mapTile);
-
-        Debug.Log("Successfully added tile at: " + coords);
     }
 }

@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 788428697475336998}
   - component: {fileID: 5491787054996091898}
   m_Layer: 0
-  m_Name: gravedigger_0
+  m_Name: gravedigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -874,8 +874,8 @@ MonoBehaviour:
   - {fileID: 6207107374423123249}
   - {fileID: 298771450609554837}
   m_Bounds:
-    m_Center: {x: -2.1314564, y: -0.41183007, z: 0}
-    m_Extent: {x: 1.2785836, y: 1.7759649, z: 0}
+    m_Center: {x: -2.131454, y: -0.39793134, z: 0}
+    m_Extent: {x: 1.2785878, y: 1.7898662, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!95 &5491787054996091898

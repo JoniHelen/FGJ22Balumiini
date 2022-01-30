@@ -20,6 +20,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] UnitList unitList;
     [SerializeField] UnitList enemyList;
 
+    [SerializeField] Phase phase;
+
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
@@ -49,38 +51,59 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed)
         {
-            
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
             StopAllCoroutines();
+            ClickInteraction();
+        }
+    }
 
+    private void ClickInteraction()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector2.zero, Mathf.Infinity, SelectionMask);
 
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(mouseWorldPos.x, mouseWorldPos.y), Vector2.zero, Mathf.Infinity, SelectionMask);
-
-            if (hit)
+        if (hit)
+        {
+            if (ClickedPlayer(ref hit))
             {
-                if (hit.collider.gameObject.CompareTag(mySide))
-                {
-                    //Tell map player is selected
-                    Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
-                    //found player
-
-                    SelectTile(new Vector2Int(playerPos.x, playerPos.y));
-
-                    var unit = hit.transform.GetComponent<Creature>();
-                    unitList.ToggleSelection(unit);
-                    StartCoroutine(ShowMoveRange(unit.Move, unit.transform.position));
-                }
-            }
-            else
-            {
-                MapTile mapTile = map.Tiles(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
-
-                SelectTile(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
-
-                MoveUnit();
+                //Tell map player is selected
+                SelectClickedPlayer(hit);
             }
         }
+        else
+        {
+            ClickedMap();
+        }
+
+        if (unitList.IsEveryoneWaiting())
+        {
+            phase.Change();
+        }
+    }
+
+    private void ClickedMap()
+    {
+        MapTile mapTile = map.Tiles(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
+
+        SelectTile(new Vector2Int(tilemap.WorldToCell(mouseWorldPos).x, tilemap.WorldToCell(mouseWorldPos).y));
+
+        MoveUnit();
+    }
+
+    private void SelectClickedPlayer(RaycastHit2D hit)
+    {
+        Vector3Int playerPos = tilemap.WorldToCell(hit.transform.position);
+        //found player
+
+        SelectTile(new Vector2Int(playerPos.x, playerPos.y));
+
+        var unit = hit.transform.GetComponent<Creature>();
+        unitList.ToggleSelection(unit);
+        StartCoroutine(ShowMoveRange(unit.Move, unit.transform.position));
+    }
+
+    private bool ClickedPlayer(ref RaycastHit2D hit)
+    {
+        return hit.collider.gameObject.CompareTag(mySide);
     }
 
     private void MoveUnit()

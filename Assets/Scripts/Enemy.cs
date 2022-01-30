@@ -14,12 +14,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] Tilemap tilemap;
     [SerializeField] Tilemap moveTilemap;
 
-    [SerializeField] TileBase tile;
-    [SerializeField] TileBase tile2;
-    [SerializeField] TileBase moveTile;
 
     [SerializeField] UnitList unitList;
     [SerializeField] UnitList playerList;
+
+    [SerializeField] Phase phase;
     /*
       sends input to inputhandler
      go through enemy list one at a time.
@@ -33,14 +32,15 @@ public class Enemy : MonoBehaviour
     End phase
      
      */
-
     private void OnEnable()
     {
-        //start phase
-        //OrderEnemies();
+        StopAllCoroutines();
+        if(phase.current == Phase.Phases.Enemy)
+            StartCoroutine (CommandUnits());
     }
+    WaitForSeconds decisionTime = new WaitForSeconds(0.7f);
 
-    public void OrderEnemies()
+    public IEnumerator CommandUnits()
     {
         for (int i = 0; i < unitList.Count; i++)
         {
@@ -48,12 +48,11 @@ public class Enemy : MonoBehaviour
             Creature _unit = unitList.Next(i);
             unitList.ToggleSelection(_unit);
             Select();
+            yield return decisionTime;
         }
-    }
-
-    private void OnDisable()
-    {
-        //unitList.ReturnToIdle();
+        unitList.ReturnToIdle();
+        phase.Change();
+        
     }
 
 
@@ -68,62 +67,20 @@ public class Enemy : MonoBehaviour
 
         if (unit != null)
         {
-
             //Tell map player is selected
             Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
-
             int Move = unit.Move;
-            Vector3Int playerCell;
             Vector3Int tilePos;
-            bool isFound = false;
             for (int i = 0; i < Move + 1; i++)
             {
-                if (isFound) break;
+                if (IsUnitWaiting(unit)) break;
                 for (int j = -i; j <= i; j++)
                 {
-                    if (isFound) break;
+                    if (IsUnitWaiting(unit)) break;
                     //get tile within move range
-                    if (i < Move)
-                    {
-                        tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
-                    }
-                    else
-                        tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
+                    tilePos = GetTileOf(enemyPos, Move, i, j);
                     // check if any player pos is same
-                    for (int p = 0; p < playerList.Count; p++)
-                    {
-                        var player = playerList.Next(p);
-                        playerCell = tilemap.WorldToCell(player.transform.position);
-                        if (tilePos == playerCell)
-                        {
-                            //player found, go to it.
-                            Vector3Int target = playerCell - enemyPos;
-                            Debug.Log($"enemy {enemyPos} => {target}");
-
-                            int x = Mathf.Abs(target.x);
-                            int y = Mathf.Abs(target.y);
-                            if (y > x)
-                            {
-                                y -= 1;
-                            }
-                            else
-                            {
-                                x -= 1;
-                            }
-
-                            target.x = (target.x > 0) ? x : x * -1;
-                            target.y = (target.y > 0) ? y : y * -1;
-
-                            if (!IsBlocked(enemyPos, target))
-                            {
-                                unit.transform.position = tilemap.CellToWorld(enemyPos + target);
-                                SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
-                                updater.UpdateOrder();
-                                isFound = true;
-                                break;
-                            }
-                        }
-                    }
+                    FindPlayersInRange(unit, enemyPos, tilePos);
 
 
                 }
@@ -137,9 +94,73 @@ public class Enemy : MonoBehaviour
             //MoveUnit();
 
         }
+        unitList.Wait();
     }
 
-    private bool IsBlocked(Vector3Int enemyPos, Vector3Int target)
+    private static bool IsUnitWaiting(Creature unit)
+    {
+        return unit.MyState == Creature.UnitState.Wait;
+    }
+
+    private void FindPlayersInRange(Creature unit, Vector3Int enemyPos, Vector3Int tilePos)
+    {
+        Vector3Int playerCell;
+        for (int p = 0; p < playerList.Count; p++)
+        {
+            var player = playerList.Next(p);
+            playerCell = tilemap.WorldToCell(player.transform.position);
+            if (IsPlayerOnThisTile(playerCell, tilePos))
+            {
+                //player found, go to it.
+                MoveToPlayer(unit, enemyPos, playerCell);
+                unitList.Wait();
+
+                break;
+            }
+        }
+
+    }
+
+    private static Vector3Int GetTileOf(Vector3Int enemyPos, int Move, int i, int j)
+    {
+        Vector3Int tilePos;
+        if (i < Move)
+        {
+            tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
+        }
+        else
+            tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
+        return tilePos;
+    }
+
+    private void MoveToPlayer(Creature unit, Vector3Int enemyPos, Vector3Int playerCell)
+    {
+        Vector3Int target = playerCell - enemyPos;
+        target = DefinePathTo(target);
+        if(IsFreeSpace(enemyPos, target))
+            unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+    }
+
+    private static Vector3Int DefinePathTo(Vector3Int target)
+    {
+        int x = Mathf.Abs(target.x);
+        int y = Mathf.Abs(target.y);
+        if (y > x)
+            y -= 1;
+        else
+            x -= 1;
+        target.x = (target.x > 0) ? x : x * -1;
+        target.y = (target.y > 0) ? y : y * -1;
+        return target;
+    }
+
+    private static bool IsPlayerOnThisTile(Vector3Int playerCell, Vector3Int tilePos)
+    {
+        return tilePos == playerCell;
+    }
+
+
+    private bool IsFreeSpace(Vector3Int enemyPos, Vector3Int target)
     {
         for (int i = 0; i < unitList.Count; i++)
         {
@@ -147,7 +168,7 @@ public class Enemy : MonoBehaviour
 
             if (enemyPos + target == tilemap.WorldToCell(c.transform.position))
             {
-                return true;
+                return false;
             }
         }
 
@@ -157,58 +178,10 @@ public class Enemy : MonoBehaviour
 
             if (enemyPos + target == tilemap.WorldToCell(c.transform.position))
             {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
-
-    //private void MoveUnit()
-    //{
-    //    if (unitList.selectedUnit != null && moveTilemap.HasTile(
-    //        new Vector3Int(moveTilemap.WorldToCell(mouseWorldPos).x,
-    //        moveTilemap.WorldToCell(mouseWorldPos).y, 0)))
-    //    {
-    //        unitList.selectedUnit.transform.position = tilemap.CellToWorld(
-    //            new Vector3Int(map.selectedTile.x,
-    //            map.selectedTile.y, 0));
-    //        //prompt actions
-    //        unitList.Wait();
-    //    }
-    //    else
-    //    {
-    //        unitList.selectedUnit = null;
-    //        unitList.ToggleSelection(unitList.selectedUnit);
-    //    }
-
-    //    moveTilemap.ClearAllTiles();
-    //}
-
-    private void SelectTile(Vector2Int selectedCoords)
-    {
-        if (HasPreviousSelectedTile())
-        {
-            //make white
-            tilemap.SetTile(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0), tile);
-        }
-
-        if (IsInMap(selectedCoords))
-        {
-            map.selectedTile = selectedCoords;
-            //make red
-            tilemap.SetTile(new Vector3Int(selectedCoords.x, selectedCoords.y, 0), tile2);
-        }
-    }
-
-    private bool IsInMap(Vector2Int selectedCoords)
-    {
-        return map.tiles.ContainsKey(selectedCoords);
-    }
-
-    private bool HasPreviousSelectedTile()
-    {
-        return map.selectedTile != null;
-    }
-
 }

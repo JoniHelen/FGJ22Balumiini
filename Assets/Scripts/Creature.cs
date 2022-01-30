@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Creature : MonoBehaviour, ICombat
 {
-    Color active = Color.white;
+    public Color active = Color.white;
     Color wait = Color.grey;
 
     SpriteRenderer renderer;

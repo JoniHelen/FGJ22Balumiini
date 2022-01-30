@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
         if(phase.current == Phase.Phases.Enemy)
             StartCoroutine (CommandUnits());
     }
-    WaitForSeconds decisionTime = new WaitForSeconds(0.2f);
+    WaitForSeconds decisionTime = new WaitForSeconds(0.7f);
 
     public IEnumerator CommandUnits()
     {

@@ -19,6 +19,8 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] UnitList unitList;
 
+    [SerializeField] Phase phase;
+
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
@@ -29,7 +31,6 @@ public class InputHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("Playerit palatkaa idleen");
         unitList.ReturnToIdle();
     }
 
@@ -70,6 +71,11 @@ public class InputHandler : MonoBehaviour
         else
         {
             ClickedMap();
+        }
+
+        if (unitList.IsEveryoneWaiting())
+        {
+            phase.Change();
         }
     }
 

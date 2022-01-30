@@ -132,8 +132,8 @@ public class InputHandler : MonoBehaviour
 
                 unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(target.x, target.y, 0));
             }
-            SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
-            updater.UpdateOrder();
+            SortOrderUpdater updater = unitList.selectedUnit.GetComponent<SortOrderUpdater>();
+            updater.UpdateOrder(tilemap);
 
             //prompt actions
             unitList.Wait();

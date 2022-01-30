@@ -6,10 +6,9 @@ using UnityEngine.Tilemaps;
 public class SortOrderUpdater : MonoBehaviour
 {
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Tilemap tilemap;
 
-    public void UpdateOrder()
+    public void UpdateOrder(Tilemap tilemap)
     {
-        spriteRenderer.sortingOrder = tilemap.WorldToCell(transform.position).y;
+        spriteRenderer.sortingOrder = (-tilemap.WorldToCell(transform.position).y) + (-tilemap.WorldToCell(transform.position).x);
     }
 }

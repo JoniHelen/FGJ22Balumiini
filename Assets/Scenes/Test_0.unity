@@ -4161,6 +4161,10 @@ PrefabInstance:
       propertyPath: myEnabler
       value: 
       objectReference: {fileID: 585943257}
+    - target: {fileID: 7766111046505514052, guid: 24ed1f7288be4d7409667a13a532aeb9, type: 3}
+      propertyPath: unitPrefab
+      value: 
+      objectReference: {fileID: 3328438462071008865, guid: 5fc10631507ff5a4c92e88e59d77cc76, type: 3}
     - target: {fileID: 7766111046505514053, guid: 24ed1f7288be4d7409667a13a532aeb9, type: 3}
       propertyPath: m_Name
       value: PlayerUnitCreator

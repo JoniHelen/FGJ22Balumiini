@@ -138,7 +138,12 @@ public class Enemy : MonoBehaviour
         Vector3Int target = playerCell - enemyPos;
         target = DefinePathTo(target);
         if(IsFreeSpace(enemyPos, target))
+        {
             unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+            SortOrderUpdater updater = unit.GetComponent<SortOrderUpdater>();
+            updater.UpdateOrder(tilemap);
+        }
+            
     }
 
     private static Vector3Int DefinePathTo(Vector3Int target)

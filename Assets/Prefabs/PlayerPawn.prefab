@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3328438462071008865}
   - component: {fileID: 975858843557079106}
   - component: {fileID: 2280433184384174734}
+  - component: {fileID: 2903551120393278227}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: PlayableCharacter
@@ -93,6 +94,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2903551120393278227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9218544282622886096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e28b6901f8fb444af77974fbd08c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 9218544282676301366}
+  tilemap: {fileID: 0}
 --- !u!1 &9218544282676301363
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +118,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9218544282676301367}
   - component: {fileID: 9218544282676301366}
-  - component: {fileID: 5949432409173864718}
   m_Layer: 0
   m_Name: TEST PLAYER
   m_TagString: PlayableCharacter
@@ -176,16 +190,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5949432409173864718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9218544282676301363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8e28b6901f8fb444af77974fbd08c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 9218544282676301366}

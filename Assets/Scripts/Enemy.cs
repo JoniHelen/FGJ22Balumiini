@@ -65,8 +65,12 @@ public class Enemy : MonoBehaviour
     public void Select()
     {
         Creature unit = unitList.selectedUnit;
-        //Tell map player is selected
-        Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
+
+        if (unit != null)
+        {
+
+            //Tell map player is selected
+            Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
 
         int Move = unit.Move;
         Vector3Int playerCell;

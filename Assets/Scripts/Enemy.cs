@@ -82,8 +82,17 @@ public class Enemy : MonoBehaviour
                     // check if any player pos is same
                     FindPlayersInRange(unit, enemyPos, tilePos);
 
+
                 }
             }
+            unitList.Wait();
+
+            //found player
+
+
+
+            //MoveUnit();
+
         }
         unitList.Wait();
     }
@@ -110,6 +119,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        return false;
     }
 
     private static Vector3Int GetTileOf(Vector3Int enemyPos, int Move, int i, int j)

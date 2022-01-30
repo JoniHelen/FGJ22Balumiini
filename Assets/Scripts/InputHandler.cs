@@ -18,6 +18,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] TileBase moveTile;
 
     [SerializeField] UnitList unitList;
+    [SerializeField] UnitList enemyList;
 
     [SerializeField] Phase phase;
 
@@ -109,7 +110,31 @@ public class InputHandler : MonoBehaviour
     {
         if (unitList.selectedUnit != null && moveTilemap.HasTile(new Vector3Int(moveTilemap.WorldToCell(mouseWorldPos).x, moveTilemap.WorldToCell(mouseWorldPos).y, 0)))
         {
-            unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0));
+            if (!IsBlocked(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0)))
+                unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0));
+            else
+            {
+                Vector3Int target = new Vector3Int(map.selectedTile.x, map.selectedTile.y, 0) - tilemap.WorldToCell(unitList.selectedUnit.transform.position);
+
+                int x = Mathf.Abs(target.x);
+                int y = Mathf.Abs(target.y);
+                if (y > x)
+                {
+                    y -= 1;
+                }
+                else
+                {
+                    x -= 1;
+                }
+
+                target.x = (target.x > 0) ? x : x * -1;
+                target.y = (target.y > 0) ? y : y * -1;
+
+                unitList.selectedUnit.transform.position = tilemap.CellToWorld(new Vector3Int(target.x, target.y, 0));
+            }
+            SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
+            updater.UpdateOrder();
+
             //prompt actions
             unitList.Wait();
         }
@@ -120,6 +145,31 @@ public class InputHandler : MonoBehaviour
         }
 
         moveTilemap.ClearAllTiles();
+    }
+
+    private bool IsBlocked(Vector3Int target)
+    {
+        for (int i = 0; i < unitList.Count; i++)
+        {
+            Creature c = unitList.Next(i);
+
+            if (target == tilemap.WorldToCell(c.transform.position))
+            {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            Creature c = enemyList.Next(i);
+
+            if (target == tilemap.WorldToCell(c.transform.position))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void SelectTile(Vector2Int selectedCoords)

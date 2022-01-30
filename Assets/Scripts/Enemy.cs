@@ -82,7 +82,14 @@ public class Enemy : MonoBehaviour
                 {
                     if (IsUnitWaiting(unit)) break;
                     //get tile within move range
-                    tilePos = GetTileOf(enemyPos, Move, i, j);
+
+                    if (i < Move)
+                    {
+                        tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
+                        FindPlayersInRange(unit, enemyPos, tilePos);
+                    }
+
+                    tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
                     // check if any player pos is same
                     FindPlayersInRange(unit, enemyPos, tilePos);
                 }
@@ -104,6 +111,7 @@ public class Enemy : MonoBehaviour
         {
             player = playerList.Next(p);
             playerCell = tilemap.WorldToCell(player.transform.position);
+
             if (IsPlayerOnThisTile(playerCell, tilePos))
             {
                 //player found, go to it.
@@ -113,19 +121,6 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
-
-    }
-
-    private static Vector3Int GetTileOf(Vector3Int enemyPos, int Move, int i, int j)
-    {
-        Vector3Int tilePos;
-        if (i < Move)
-        {
-            tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
-        }
-        else
-            tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
-        return tilePos;
     }
 
     private void MoveToPlayer(Creature unit, Vector3Int enemyPos, Vector3Int playerCell)
@@ -140,7 +135,6 @@ public class Enemy : MonoBehaviour
             // combat
             Battle.Initiate.CombatRound(unit, player);
             source.Play();
-
         }
 
     }

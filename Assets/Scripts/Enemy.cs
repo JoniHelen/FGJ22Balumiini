@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] UnitList playerList;
 
     [SerializeField] Phase phase;
+
+    [SerializeField] AudioSource source;
     /*
       sends input to inputhandler
      go through enemy list one at a time.
@@ -35,13 +37,14 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         StopAllCoroutines();
-        if(phase.current == Phase.Phases.Enemy)
-            StartCoroutine (CommandUnits());
+        if (phase.current == Phase.Phases.Enemy)
+            StartCoroutine(CommandUnits());
     }
     WaitForSeconds decisionTime = new WaitForSeconds(1f);
 
     public IEnumerator CommandUnits()
     {
+        yield return decisionTime;
         for (int i = 0; i < unitList.Count; i++)
         {
             //get next unit
@@ -52,13 +55,14 @@ public class Enemy : MonoBehaviour
         }
         unitList.ReturnToIdle();
         phase.Change();
-        
+
     }
 
 
     private void Awake()
     {
         mySide = gameObject.tag;
+        source = GetComponent<AudioSource>();
     }
 
     public void Select()
@@ -81,20 +85,10 @@ public class Enemy : MonoBehaviour
                     tilePos = GetTileOf(enemyPos, Move, i, j);
                     // check if any player pos is same
                     FindPlayersInRange(unit, enemyPos, tilePos);
-
-
                 }
             }
             unitList.Wait();
-
-            //found player
-
-
-
-            //MoveUnit();
-
         }
-        unitList.Wait();
     }
 
     private static bool IsUnitWaiting(Creature unit)
@@ -102,12 +96,13 @@ public class Enemy : MonoBehaviour
         return unit.MyState == Creature.UnitState.Wait;
     }
 
+    Creature player;
     private void FindPlayersInRange(Creature unit, Vector3Int enemyPos, Vector3Int tilePos)
     {
         Vector3Int playerCell;
         for (int p = 0; p < playerList.Count; p++)
         {
-            var player = playerList.Next(p);
+            player = playerList.Next(p);
             playerCell = tilemap.WorldToCell(player.transform.position);
             if (IsPlayerOnThisTile(playerCell, tilePos))
             {
@@ -137,14 +132,17 @@ public class Enemy : MonoBehaviour
     {
         Vector3Int target = playerCell - enemyPos;
         target = DefinePathTo(target);
-        if(IsFreeSpace(enemyPos, target))
+        if (IsFreeSpace(enemyPos, target))
         {
             unit.transform.position = tilemap.CellToWorld(enemyPos + target);
             SortOrderUpdater updater = unit.GetComponent<SortOrderUpdater>();
             updater.UpdateOrder(tilemap);
             // combat
+            Battle.Initiate.CombatRound(unit, player);
+            source.Play();
+
         }
-            
+
     }
 
     private static Vector3Int DefinePathTo(Vector3Int target)

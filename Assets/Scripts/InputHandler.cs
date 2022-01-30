@@ -22,12 +22,15 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] Phase phase;
 
+    AudioSource source;
+
     private Vector2 mouseScreenPos;
     private Vector2 mouseWorldPos;
 
     private void Awake()
     {
         mySide = gameObject.tag;
+        source = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -54,6 +57,7 @@ public class InputHandler : MonoBehaviour
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
             StopAllCoroutines();
             ClickInteraction();
+            source.Play();
         }
     }
 
@@ -136,6 +140,9 @@ public class InputHandler : MonoBehaviour
             updater.UpdateOrder(tilemap);
 
             //prompt actions
+
+
+
             unitList.Wait();
         }
         else

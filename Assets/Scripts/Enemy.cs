@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
         if(phase.current == Phase.Phases.Enemy)
             StartCoroutine (CommandUnits());
     }
-    WaitForSeconds decisionTime = new WaitForSeconds(0.7f);
+    WaitForSeconds decisionTime = new WaitForSeconds(1f);
 
     public IEnumerator CommandUnits()
     {
@@ -142,6 +142,7 @@ public class Enemy : MonoBehaviour
             unit.transform.position = tilemap.CellToWorld(enemyPos + target);
             SortOrderUpdater updater = unit.GetComponent<SortOrderUpdater>();
             updater.UpdateOrder(tilemap);
+            // combat
         }
             
     }

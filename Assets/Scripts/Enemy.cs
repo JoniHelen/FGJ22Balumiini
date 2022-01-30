@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
                         FindPlayersInRange(unit, enemyPos, tilePos);
                     }
 
-                    tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move
+                    tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
                     // check if any player pos is same
                     FindPlayersInRange(unit, enemyPos, tilePos);
                 }
@@ -149,13 +149,11 @@ public class Enemy : MonoBehaviour
             x -= 1;
         target.x = (target.x > 0) ? x : x * -1;
         target.y = (target.y > 0) ? y : y * -1;
-        Debug.Log("TARGET: " + target);
         return target;
     }
 
     private static bool IsPlayerOnThisTile(Vector3Int playerCell, Vector3Int tilePos)
     {
-        //Debug.Log($"{playerCell} VS {tilePos}");
         return tilePos == playerCell;
     }
 

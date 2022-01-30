@@ -119,7 +119,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        return false;
     }
 
     private static Vector3Int GetTileOf(Vector3Int enemyPos, int Move, int i, int j)

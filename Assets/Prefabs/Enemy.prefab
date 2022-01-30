@@ -11,14 +11,13 @@ GameObject:
   - component: {fileID: 5785282745408074912}
   - component: {fileID: 5785282745408074913}
   - component: {fileID: 5785282745408074915}
-  - component: {fileID: 5785282745408074914}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5785282745408074912
 Transform:
   m_ObjectHideFlags: 0
@@ -45,6 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df05054110480c04fa3839c3f85fbae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  map: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
+  tilemap: {fileID: 0}
+  moveTilemap: {fileID: 0}
+  unitList: {fileID: 11400000, guid: ccf006b25f234484ab96546e736ff6d7, type: 2}
+  playerList: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
+  phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
 --- !u!114 &5785282745408074915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,26 +67,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
   myPhase: 1
-  myHandler: {fileID: 5785282745408074913}
---- !u!114 &5785282745408074914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5785282745408074918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62284b9f9aace8b41965308de78755d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectionMask:
-    serializedVersion: 2
-    m_Bits: 1
-  map: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
-  tilemap: {fileID: 0}
-  moveTilemap: {fileID: 0}
-  tile: {fileID: 11400000, guid: f527106cd488e0d49956c9dc5a4ccabe, type: 2}
-  tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
-  moveTile: {fileID: 11400000, guid: 69bdadd0bf7a8c249b4168bfcf514f0d, type: 2}
-  unitList: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
+  myHandlers:
+  - {fileID: 5785282745408074913}

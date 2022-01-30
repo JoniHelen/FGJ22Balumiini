@@ -265,7 +265,7 @@ Transform:
   m_Children:
   - {fileID: 422264223}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &391153554
 GameObject:
@@ -2419,29 +2419,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 585943261, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1084528771}
     - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: moveTilemap
       value: 
       objectReference: {fileID: 422264225}
-    - target: {fileID: 2395497171855832985, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2395497171855832987, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2395497171855832987, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2486,10 +2474,6 @@ PrefabInstance:
     - target: {fileID: 2395497171855832990, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: m_Name
       value: Player (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2395497171855832990, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
@@ -2675,7 +2659,7 @@ PrefabInstance:
       objectReference: {fileID: 1084528771}
     - target: {fileID: 227172451657552919, guid: cf0c0618a0f2f3a43853bf4ea6b925b3, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 227172451657552919, guid: cf0c0618a0f2f3a43853bf4ea6b925b3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3077,59 +3061,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: map
-      value: 
-      objectReference: {fileID: 11400000, guid: fe0dbaebdb6ae2c4284ed99f87f8a4e3, type: 2}
-    - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1084528771}
     - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: unitList
-      value: 
-      objectReference: {fileID: 11400000, guid: ccf006b25f234484ab96546e736ff6d7, type: 2}
-    - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: playerList
-      value: 
-      objectReference: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
-    - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
       propertyPath: moveTilemap
       value: 
       objectReference: {fileID: 422264225}
-    - target: {fileID: 5785282745408074913, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: SelectionMask.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785282745408074914, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: tilemap
-      value: 
-      objectReference: {fileID: 1084528771}
-    - target: {fileID: 5785282745408074914, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: unitList
-      value: 
-      objectReference: {fileID: 11400000, guid: ccf006b25f234484ab96546e736ff6d7, type: 2}
-    - target: {fileID: 5785282745408074914, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: moveTilemap
-      value: 
-      objectReference: {fileID: 422264225}
-    - target: {fileID: 5785282745408074915, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5785282745408074918, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5785282745408074918, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5785282745408074914, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 086d16e3ab36b6a4d8d88a5aff23f962, type: 3}
 --- !u!1001 &6966771393376719358
 PrefabInstance:

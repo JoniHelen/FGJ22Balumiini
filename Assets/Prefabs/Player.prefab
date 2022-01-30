@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2395497171855832987
 Transform:
   m_ObjectHideFlags: 0
@@ -55,6 +55,8 @@ MonoBehaviour:
   tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
   moveTile: {fileID: 11400000, guid: 69bdadd0bf7a8c249b4168bfcf514f0d, type: 2}
   unitList: {fileID: 11400000, guid: 14f5b3e5ff2a82c4d968f4e539f30ee3, type: 2}
+  enemyList: {fileID: 11400000, guid: ccf006b25f234484ab96546e736ff6d7, type: 2}
+  phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
 --- !u!114 &2395497171855832985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,4 +137,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phase: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
   myPhase: 0
-  myHandler: {fileID: 2395497171855832985}
+  myHandlers:
+  - {fileID: 2395497171855832985}
+  - {fileID: 2395497171855832984}

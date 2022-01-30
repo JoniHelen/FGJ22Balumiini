@@ -97,4 +97,13 @@ public class UnitList : ScriptableObject
             _unit.ChangeState(Creature.UnitState.Idle);
         }
     }
+
+    public bool IsEveryoneWaiting()
+    {
+        foreach (var unit in units)
+        {
+            if (unit.MyState != Creature.UnitState.Wait) return false;
+        }
+        return true;
+    }
 }

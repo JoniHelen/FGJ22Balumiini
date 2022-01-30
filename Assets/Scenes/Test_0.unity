@@ -516,7 +516,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 504
+  m_SortingOrder: -50
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -955,6 +955,7 @@ MonoBehaviour:
   tile2: {fileID: 11400000, guid: 217e94fcca9086e43a0e6e11816ac511, type: 2}
   moveTile: {fileID: 0}
   unitList: {fileID: 0}
+  enemyList: {fileID: 0}
 --- !u!4 &816222447
 Transform:
   m_ObjectHideFlags: 0
@@ -1133,7 +1134,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -75
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0.29166675, z: 0}
   m_MaxChunkCount: 16
@@ -2602,6 +2603,10 @@ PrefabInstance:
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1084528771}
+    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+      propertyPath: enemyList
+      value: 
+      objectReference: {fileID: 11400000, guid: ccf006b25f234484ab96546e736ff6d7, type: 2}
     - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: m_Enabled
       value: 1

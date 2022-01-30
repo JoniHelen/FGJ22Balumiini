@@ -72,70 +72,71 @@ public class Enemy : MonoBehaviour
             //Tell map player is selected
             Vector3Int enemyPos = tilemap.WorldToCell(unit.transform.position);
 
-        int Move = unit.Move;
-        Vector3Int playerCell;
-        Vector3Int tilePos;
-        bool isFound = false;
-        for (int i = 0; i < Move + 1; i++)
-        {
-            if (isFound) break;
-            for (int j = -i; j <= i; j++)
+            int Move = unit.Move;
+            Vector3Int playerCell;
+            Vector3Int tilePos;
+            bool isFound = false;
+            for (int i = 0; i < Move + 1; i++)
             {
                 if (isFound) break;
-                //get tile within move range
-                if (i < Move)
+                for (int j = -i; j <= i; j++)
                 {
-                    tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
-                }
-                else
-                tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
-                // check if any player pos is same
-                for (int p = 0; p < playerList.Count; p++)
-                {
-                    var player = playerList.Next(p);
-                    playerCell = tilemap.WorldToCell(player.transform.position);
-                    if (tilePos == playerCell)
+                    if (isFound) break;
+                    //get tile within move range
+                    if (i < Move)
                     {
-                        //player found, go to it.
-                        Vector3Int target = playerCell - enemyPos;
-                        Debug.Log($"enemy {enemyPos} => {target}");
+                        tilePos = enemyPos + new Vector3Int(-i, j, 0) + Vector3Int.right * Move;
+                    }
+                    else
+                        tilePos = enemyPos + new Vector3Int(i, j, 0) + Vector3Int.left * Move;
+                    // check if any player pos is same
+                    for (int p = 0; p < playerList.Count; p++)
+                    {
+                        var player = playerList.Next(p);
+                        playerCell = tilemap.WorldToCell(player.transform.position);
+                        if (tilePos == playerCell)
+                        {
+                            //player found, go to it.
+                            Vector3Int target = playerCell - enemyPos;
+                            Debug.Log($"enemy {enemyPos} => {target}");
 
-                        int x = Mathf.Abs(target.x);
-                        int y = Mathf.Abs(target.y);
-                        if (y > x)
-                        {
-                            y -= 1;
-                        }
-                        else
-                        {
-                            x -= 1;
-                        }
+                            int x = Mathf.Abs(target.x);
+                            int y = Mathf.Abs(target.y);
+                            if (y > x)
+                            {
+                                y -= 1;
+                            }
+                            else
+                            {
+                                x -= 1;
+                            }
 
-                        target.x = (target.x > 0) ? x : x * -1;
-                        target.y = (target.y > 0) ? y : y * -1;
-          
-                        if (!IsBlocked(enemyPos, target))
-                        {
-                            unit.transform.position = tilemap.CellToWorld(enemyPos + target);
-                            SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
-                            updater.UpdateOrder();
-                            isFound = true;
-                            break;
+                            target.x = (target.x > 0) ? x : x * -1;
+                            target.y = (target.y > 0) ? y : y * -1;
+
+                            if (!IsBlocked(enemyPos, target))
+                            {
+                                unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+                                SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
+                                updater.UpdateOrder();
+                                isFound = true;
+                                break;
+                            }
                         }
                     }
+
+
                 }
-                    
-                
             }
+            unitList.Wait();
+
+            //found player
+
+
+
+            //MoveUnit();
+
         }
-        unitList.Wait();
-
-        //found player
-
-
-
-        //MoveUnit();
-
     }
 
     private bool IsBlocked(Vector3Int enemyPos, Vector3Int target)

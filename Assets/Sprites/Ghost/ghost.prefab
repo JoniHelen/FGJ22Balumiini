@@ -365,9 +365,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5383152825708895250}
   m_LocalRotation: {x: 0, y: 0, z: 0.69437295, w: 0.71961534}
-  m_LocalPosition: {x: 0.07513367, y: -2.0700784, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 212687776203908555}
   m_Father: {fileID: 4358493424243596960}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -455,16 +456,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6378086792575133547}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7125247, w: 0.70164704}
-  m_LocalPosition: {x: 0.1187189, y: -1.3236823, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.025538981, w: 0.99967384}
+  m_LocalPosition: {x: 1.0293012, y: -0.029361188, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6171714262179921902}
   - {fileID: 7494800892813463955}
   - {fileID: 8581215789703386201}
   - {fileID: 7987318754705978632}
-  m_Father: {fileID: 4358493424243596960}
-  m_RootOrder: 1
+  m_Father: {fileID: 884835539562026335}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6817466628063447609
 GameObject:
@@ -553,11 +554,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8103156770868015765}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4394083, y: 13.690568, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 884835539562026335}
-  - {fileID: 212687776203908555}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -645,8 +645,8 @@ MonoBehaviour:
   - {fileID: 7713373886163837167}
   - {fileID: 6884560003848194910}
   m_Bounds:
-    m_Center: {x: -0.0848943, y: -0.09954512, z: 0}
-    m_Extent: {x: 0.710886, y: 1.5695443, z: 0}
+    m_Center: {x: -0.13753343, y: 2.2517347, z: 0}
+    m_Extent: {x: 0.7108849, y: 1.569545, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!95 &2340763402935266925

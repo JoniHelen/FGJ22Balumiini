@@ -2458,6 +2458,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 585943260}
     - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
+      propertyPath: phase
+      value: 
+      objectReference: {fileID: 11400000, guid: 04ab8bb3bc199ea4aaa5d640486e4abb, type: 2}
+    - target: {fileID: 2395497171855832984, guid: ea50a5ab7120d88409ee99720c13a439, type: 3}
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1084528771}

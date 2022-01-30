@@ -128,7 +128,8 @@ public class Enemy : MonoBehaviour
     {
         Vector3Int target = playerCell - enemyPos;
         target = DefinePathTo(target);
-        unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+        if(IsFreeSpace(enemyPos, target))
+            unit.transform.position = tilemap.CellToWorld(enemyPos + target);
     }
 
     private static Vector3Int DefinePathTo(Vector3Int target)
@@ -149,4 +150,29 @@ public class Enemy : MonoBehaviour
         return tilePos == playerCell;
     }
 
+
+    private bool IsFreeSpace(Vector3Int enemyPos, Vector3Int target)
+    {
+        for (int i = 0; i < unitList.Count; i++)
+        {
+            Creature c = unitList.Next(i);
+
+            if (enemyPos + target == tilemap.WorldToCell(c.transform.position))
+            {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            Creature c = playerList.Next(i);
+
+            if (enemyPos + target == tilemap.WorldToCell(c.transform.position))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

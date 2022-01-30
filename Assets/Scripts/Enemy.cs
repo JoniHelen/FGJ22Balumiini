@@ -113,6 +113,8 @@ public class Enemy : MonoBehaviour
                         if (!IsBlocked(enemyPos, target))
                         {
                             unit.transform.position = tilemap.CellToWorld(enemyPos + target);
+                            SortOrderUpdater updater = unitList.selectedUnit.GetComponentInChildren<SortOrderUpdater>();
+                            updater.UpdateOrder();
                             isFound = true;
                             break;
                         }
@@ -143,6 +145,17 @@ public class Enemy : MonoBehaviour
                 return true;
             }
         }
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            Creature c = playerList.Next(i);
+
+            if (enemyPos + target == tilemap.WorldToCell(c.transform.position))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 

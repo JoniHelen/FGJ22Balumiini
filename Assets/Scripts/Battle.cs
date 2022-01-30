@@ -36,7 +36,7 @@ public class Battle : MonoBehaviour
         Defender.text =
         $"HP: {defender.HP}/{defender.maxHP}\nATK: {defender.Strength}\nDEF: {defender.PhysicalDefense}";
 
-        Forecast.text = $"DMG\n{attacker.Strength - defender.PhysicalDefense} VS {defender.Strength - attacker.PhysicalDefense}";
+        Forecast.text = $"DMG\n{attacker.Strength - defender.PhysicalDefense} <=> {defender.Strength - attacker.PhysicalDefense}";
     }
 
     WaitForSeconds turn = new WaitForSeconds(0.5f);

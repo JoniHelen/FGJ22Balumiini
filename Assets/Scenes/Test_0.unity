@@ -3354,7 +3354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6966771392490099635, guid: 2ba71de2e5df84347af137c83403aa12, type: 3}
       propertyPath: yOffset
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6966771392490099635, guid: 2ba71de2e5df84347af137c83403aa12, type: 3}
       propertyPath: myEnabler
